@@ -1,7 +1,7 @@
 clear;clc
 
-data = readmatrix("example.txt");
-data = readmatrix("real.txt");
+data = readmatrix("Day01ex.txt");
+data = readmatrix("Day01.txt");
 
 % Part 1
 sorted = [sort(data(:,1)),sort(data(:,2))];
