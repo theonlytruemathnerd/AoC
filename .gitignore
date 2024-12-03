@@ -1,2 +1,5 @@
 # ignore ALL .txt files
 *.txt
+
+# ignore ALL .asv (MATLAB autosave) files
+*.asv
