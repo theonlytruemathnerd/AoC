@@ -3,7 +3,10 @@ clear;clc
 data = readmatrix("Day02ex.txt");
 data = readmatrix("Day02.txt",NumHeaderLines=0);
 
-% Part 1
+part1(data)
+part2(data)
+
+function part1(data)
 numSafe = 0;
 for ii = 1:size(data,1)
     row = data(ii,~isnan(data(ii,:)));
@@ -12,8 +15,9 @@ for ii = 1:size(data,1)
     end
 end
 disp(numSafe)
+end
 
-% Part 2
+function part2(data)
 numSafe = 0;
 for ii = 1:size(data,1)
     row = data(ii,~isnan(data(ii,:)));
@@ -27,6 +31,7 @@ for ii = 1:size(data,1)
     end
 end
 disp(numSafe)
+end
 
 function bool = isValid(row)
 diffs = diff(row);

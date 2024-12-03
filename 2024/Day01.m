@@ -3,12 +3,15 @@ clear;clc
 data = readmatrix("Day01ex.txt");
 data = readmatrix("Day01.txt");
 
-% Part 1
+part1(data)
+part2(data)
+
+function part1(data)
 sorted = [sort(data(:,1)),sort(data(:,2))];
 disp(sum(abs(diff(sorted,1,2))))
+end
 
-
-% Part 2
+function part2(data)
 [L,LG] = groupcounts(data(:,1));
 [R,RG] = groupcounts(data(:,2));
 
@@ -19,3 +22,4 @@ for ind = 1:numel(LG)
     end
 end
 disp(sum(similarities))
+end
