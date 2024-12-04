@@ -8,29 +8,20 @@ part2(data)
 
 function part1(data)
 xmas = "XMAS";
+samx = "SAMX";
 n = size(data,1);
 
-% row left right
-leftright = count(string(data),xmas);
-
-% row right left
-rightleft = count(string(flip(data,2)),xmas);
-
-% col top down
-topdown = count(string(data'),xmas);
-
-% col bottomup
-bottomup = count(string(flip(data',2)),xmas);
+rows = sum(count(string(data),xmas) + count(string(data),samx));
+cols = sum(count(string(data'),xmas) + count(string(data'),samx));
 
 diags = 0;
+dataRot = rot90(data);
 for k = -n+1 : n-1
-    diags = diags + count(string(diag(data,k)'),xmas);
-    diags = diags + count(string(diag(rot90(data),k)'),xmas);
-    diags = diags + count(string(diag(rot90(data,2),k)'),xmas);
-    diags = diags + count(string(diag(rot90(data,3),k)'),xmas);
+    diags = diags + count(string(diag(data,k)'),xmas) + count(string(diag(data,k)'),samx);
+    diags = diags + count(string(diag(dataRot,k)'),xmas) + count(string(diag(dataRot,k)'),samx);
 end
 
-disp(sum(leftright+rightleft+topdown+bottomup)+diags)
+disp(rows+cols+diags)
 end
 
 function part2(data)
@@ -44,12 +35,12 @@ startInd = @(x)(1-x).*(x<=0) + (n*x+1).*(x>0);
 Ainds = [];
 for k = -n+1 : n-1
     % fprintf('%d: %s\n',k,diag(data,k)')
-    inds = startInd(k) + (n+1)*strfind(diag(data,k)',mas|sam);
-    Ainds = [Ainds inds];
+    Ainds = [Ainds startInd(k) + (n+1)*strfind(diag(data,k)',mas)];
+    Ainds = [Ainds startInd(k) + (n+1)*strfind(diag(data,k)',sam)];
 end
 total = 0;
 for Aind = Ainds
-    if isequal(sort(data([Aind-n+1 Aind+n-1])),'MS')
+    if isequal(data([Aind-n+1 Aind+n-1]),'MS') || isequal(data([Aind-n+1 Aind+n-1]),'SM')
         total = total + 1;
     end
 end
